@@ -11,11 +11,18 @@ enum DIRECTION {
 enum MARK {
 	SPACE,
 	OBSTACLE,
-	OPPONENT,
-	ME
+	PLAYER_G,
+	PLAYER_R
 };
 
 enum PLAYER {
+	R,
+	G
+};
+
+enum WINNER {
+	PLAYER_G,
 	PLAYER_R,
-	PLAYER_G
+	NOBODY,
+	DRAW
 };
