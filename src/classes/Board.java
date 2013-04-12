@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Board{
 
-	MARK board[][];
+	private MARK board[][];
 
-	Pair<Integer, Integer> currentPositionG;
-	Pair<Integer, Integer> currentPositionR;
+	private Pair<Integer, Integer> currentPositionG;
+	private Pair<Integer, Integer> currentPositionR;
 	
-	int lines, cols; // dimensiunea hartii
+	private int lines, cols; // dimensiunea hartii
 
 	/**
 	 * 
@@ -30,30 +30,30 @@ public class Board{
 		this.cols = cols;
 
 	}
-	
+
 	/**
 	 * 
 	 * @param b - un board
 	 * copiaza Board-ul b
 	 */
 	public Board (Board b) {
-		
+
 		int oldFG, oldSG; // vechiul first si second pt player G
 		oldFG = b.currentPositionG.getFirst();
 		oldSG = b.currentPositionG.getSecond();
 		currentPositionG.setBoth(oldFG, oldSG);
-		
+
 		int oldFR, oldSR; // vechiul first si second pt player R
 		oldFR = b.currentPositionR.getFirst();
 		oldSR = b.currentPositionR.getSecond();
 		currentPositionG.setBoth(oldFR, oldSR);
-		
+
 		for (int i = 0; i < b.lines; i++) {
-			for (int j = 0; j < b.lines; j++) {
+			for (int j = 0; j < b.cols; j++) {
 				board[i][j] = b.board[i][j];
 			}
 		}
-		
+
 	}
 
 	/**
