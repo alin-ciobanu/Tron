@@ -129,7 +129,7 @@ public class Board{
 	 *           ce element a fost pe pozitia [i][j] in matricea board
 	 */
 	public Pair<MARK, MARK> makeMove (DIRECTION myDir, DIRECTION oppDir) {
-		
+
 		/*
 		 * Mai e de lucrat
 		 * TODO Trebuie gasit un mod care sa tina minte care a fost directia inainte ca aceasta sa fie schimbata
