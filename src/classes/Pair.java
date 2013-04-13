@@ -56,7 +56,7 @@ public class Pair<T, U> {
 		/**
 		 * Variabila folosita pentru a nu avea un carnat de expresii
 		 */
-		double x = Math.pow((p1.first - p2.first),2) + Math.pow((p1.second + p2.second),2);
+		double x = Math.pow((p1.first - p2.first),2) + Math.pow((p1.second - p2.second),2);
 		
 		return (int)(Math.pow(x, 1/2));
 	}
