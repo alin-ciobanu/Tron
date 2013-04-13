@@ -31,7 +31,9 @@ public class GetMove {
 		WINNER winner = board.getWinner();
 		Pair<Integer, Integer> pozR;
 		Pair<Integer, Integer> pozG;
-
+		pozR = board.getCurrentPositionForR();
+		pozG = board.getCurrentPositionForG();
+		
 		if (winner != WINNER.NOBODY) {
 			if (play_as == PLAYER.R) {
 				switch (winner) {
@@ -43,6 +45,8 @@ public class GetMove {
 
 				case DRAW:
 					return INF / 2;
+				default:
+					return 1/(Pair.distanceTo(pozR, pozG));
 
 				}
 			} else {
@@ -55,13 +59,14 @@ public class GetMove {
 
 				case DRAW:
 					return INF / 2;
+				default:
+					return 1/(Pair.distanceTo(pozR, pozG));
 
 				}
 			}
 		}
 
-		pozR = board.getCurrentPositionForR();
-		pozG = board.getCurrentPositionForG();
+		
 
 		return 1/(Pair.distanceTo(pozR, pozG));
 	}
@@ -100,6 +105,7 @@ public class GetMove {
 		for (DIRECTION dir : possibleMoves) {
 			score = alphaBetaMini(alpha, beta, depth - 1, board, dir, play_as);
 			if (score >= beta) {
+				move = dir;
 				return beta;
 			}
 
