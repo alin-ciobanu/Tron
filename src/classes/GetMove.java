@@ -105,12 +105,12 @@ public class GetMove {
 		for (DIRECTION dir : possibleMoves) {
 			score = alphaBetaMini(alpha, beta, depth - 1, board, dir, play_as);
 			if (score >= beta) {
-				move = dir;
 				return beta;
 			}
 
 			if (score > alpha) {
 				alpha = score;
+				move = dir;
 			}
 		}
 
