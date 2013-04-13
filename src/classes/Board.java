@@ -117,6 +117,22 @@ public class Board{
 		}
 		
 	}
+	/**
+	 * 
+	 * @return Pozitia curent a jucatorului R
+	 */
+	public Pair<Integer,Integer> getCurrentPositionForR(){
+		return currentPositionR;
+	}
+	
+	/**
+	 * 
+	 * @return Pozitia curenta a jucatorului G
+	 */
+	
+	public Pair<Integer,Integer> getCurrentPositionForG(){
+		return currentPositionG;
+	}
 	
 	/**
 	 * 
