@@ -446,7 +446,6 @@ public class Board{
 		
 		System.out.println(b.getWinner());
 		
-		
 	}
 
 }

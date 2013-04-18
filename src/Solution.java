@@ -8,7 +8,7 @@ import javax.swing.text.PlainDocument;
 public class Solution {
 
 	private static final int INF = Integer.MAX_VALUE;
-	private static final int DEPTH = 10;
+	private static final int DEPTH = 6;
 
 	/**
 	 * 
@@ -95,7 +95,7 @@ public class Solution {
 	 *         lui Mini miscarea pe care o va face
 	 */
 	private int alphaBetaMax(int alpha, int beta, int depth, Board board,
-			DIRECTION move, PLAYER play_as, SingleDir nextMove) {
+			PLAYER play_as, SingleDir nextMove) {
 
 		if (depth == 0 || board.getWinner() != WINNER.NOBODY) {
 			return evaluate(board, play_as);
@@ -106,14 +106,16 @@ public class Solution {
 
 		for (DIRECTION dir : possibleMoves) {
 			score = alphaBetaMini(alpha, beta, depth - 1, board, dir, play_as, new SingleDir());
-			if (score >= beta) {
-				return beta;
-			}
-
+			
 			if (score > alpha) {
 				alpha = score;
 				nextMove.dist = dir;
 			}
+
+			if (score >= beta) {
+				return beta;
+			}
+
 		}
 
 		return alpha;
@@ -164,7 +166,7 @@ public class Solution {
 				board.makeMove(dir, PLAYER.R);
 				board.makeMove(move, PLAYER.G);
 			}
-			score = alphaBetaMax(alpha, beta, depth - 1, board, dir, play_as, new SingleDir());
+			score = alphaBetaMax(alpha, beta, depth - 1, board, play_as, new SingleDir());
 
 			if (play_as.equals(PLAYER.R)) {
 				board.undoMove(move, PLAYER.R);
@@ -174,18 +176,20 @@ public class Solution {
 				board.undoMove(move, PLAYER.G);
 			}
 
-			if (score <= alpha) {
-				return alpha;
-			}
 			if (score < beta) {
 				beta = score;
 				nextMove.dist = dir;
 			}
+			
+			if (score <= alpha) {
+				return alpha;
+			}
+			
 		}
 
 		return beta;
 	}
-	
+
 	/**
 	 * 
 	 * @param board Tabla curent
@@ -196,41 +200,52 @@ public class Solution {
 		
 		SingleDir nextMove = new SingleDir();
 
-		alphaBetaMax(-INF, INF, DEPTH, board, DIRECTION.DOWN, play_as, nextMove );
+		alphaBetaMax(-INF, INF, DEPTH, board, play_as, nextMove);
 		
 		return nextMove.dist;
 	}
 	
+	/**
+	 * 
+	 * @param in - stdin de fiecare data
+	 * @return Pair cu Board-ul si cu player-ul pe care il controleaza bot-ul
+	 */
 	public Pair<Board, PLAYER> read (Scanner in) {
 		
 		Pair<Board, PLAYER> p = new Pair<Board, PLAYER>();
 		Board b;
 
-		if (in.next().charAt(0) == 'r')
+		if ((in.nextLine()).charAt(0) == 'r')
 			p.setSecond(PLAYER.R);
 		else
 			p.setSecond(PLAYER.G);
 		
 		int fstR, sndR, fstG, sndG;
-		fstR = in.nextInt();
-		sndR = in.nextInt();
-		
-		fstG = in.nextInt();
-		sndG = in.nextInt();
-		
+
+		String line = "";
+		line = in.nextLine();
+		StringTokenizer st = new StringTokenizer(line, " ");
+
+		fstR = Integer.parseInt(st.nextToken());
+		sndR = Integer.parseInt(st.nextToken());
+
+		fstG = Integer.parseInt(st.nextToken());
+		sndG = Integer.parseInt(st.nextToken());
+
 		int lines, cols;
-		lines = in.nextInt();
-		cols = in.nextInt();
+		line = "";
+		line = in.nextLine();
+		st = new StringTokenizer(line, " ");
+		lines = Integer.parseInt(st.nextToken());
+		cols = Integer.parseInt(st.nextToken());
 		
 		b = new Board(lines, cols);
 		b.setCurrentPositionForG(fstG, sndG);
 		b.setCurrentPositionForR(fstR, sndR);
-		
+
 		String[] map = new String[lines];
-		int i = 0;
-		while (in.hasNextLine()) {
+		for (int i = 0; i < lines; i++) {
 			map[i] = in.nextLine();
-			i++;
 		}
 		
 		b.updateMap(map, lines);
