@@ -1,5 +1,7 @@
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Board{
 
@@ -7,7 +9,7 @@ public class Board{
 
 	private Pair<Integer, Integer> currentPositionG;
 	private Pair<Integer, Integer> currentPositionR;
-	
+
 	private int lines, cols; // dimensiunea hartii
 
 	/**
@@ -389,13 +391,13 @@ public class Board{
 	 */
 	public WINNER getWinner () {
 
-		int possibleMovesForG = getPossibleMoves(PLAYER.G).size();
-		int possibleMovesForR = getPossibleMoves(PLAYER.R).size();
-		
+		int possibleMovesForG = this.getPossibleMoves(PLAYER.G).size();
+		int possibleMovesForR = this.getPossibleMoves(PLAYER.R).size();
+
 		if (currentPositionG.equals(currentPositionR)) {
 			return WINNER.DRAW;
 		}
-		
+
 		if (possibleMovesForG == possibleMovesForR && possibleMovesForG == 0) {
 			return WINNER.DRAW;
 		}
@@ -408,7 +410,7 @@ public class Board{
 			return WINNER.PLAYER_G;
 		}
 		
-		if (possibleMovesForG == possibleMovesForR && possibleMovesForG > 0) {
+		if (possibleMovesForG >0 && possibleMovesForR > 0) {
 			return WINNER.NOBODY;
 		}
 
@@ -418,8 +420,33 @@ public class Board{
 
 	}
 	
-	public static void main(String[] args) {
-		// TODO Test Board class here
+	public static void main(String[] args) throws Exception {
+		
+		int lines, cols;
+		lines = cols = 15;
+		Board b = new Board(lines, cols);
+		
+		Scanner in = new Scanner(new File("testBoard.txt"));
+
+		String[] mat = new String[lines];
+		
+		for (int i = 0; i < lines; i++) {
+			mat[i] = in.nextLine();
+		}
+		
+		in.close();
+		
+		b.updateMap(mat, lines);
+		b.setCurrentPositionForR(7, 1);
+		b.setCurrentPositionForG(12, 8);
+		System.out.println(b.board[12][8]);
+
+		ArrayList<DIRECTION> free = b.getPossibleMoves(PLAYER.G);
+		System.out.println(free);
+		
+		System.out.println(b.getWinner());
+		
+		
 	}
 
 }
