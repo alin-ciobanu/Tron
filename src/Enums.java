@@ -1,4 +1,3 @@
-package classes;
 
 enum DIRECTION {
 	UP,

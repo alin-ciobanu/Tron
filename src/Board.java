@@ -1,4 +1,3 @@
-package classes;
 
 import java.util.ArrayList;
 
@@ -93,7 +92,7 @@ public class Board{
 	 * @param lines -- numarul de linii pe care le are harta
 	 */
 	public void updateMap (String[] map, int lines) {
-		
+
 		for (int i = 0; i < lines; i++) {
 			for (int j = 0; j < map[i].length(); j++) {
 				

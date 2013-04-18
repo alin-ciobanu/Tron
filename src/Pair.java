@@ -1,5 +1,3 @@
-package classes;
-
 
 public class Pair<T, U> {
 
@@ -44,21 +42,6 @@ public class Pair<T, U> {
 	void setBoth (T first, U second) {
 		this.first = first;
 		this.second = second;
-	}
-
-	/**
-	 * Functie pentru calculul distantei dintre doua puncte
-	 * @param p1 - Prima pereche de pozitii
-	 * @param p2 - A doua pereche de pozitii
-	 * @return - Distanta
-	 */
-	public static int distanceTo(Pair<Integer,Integer> p1, Pair<Integer,Integer> p2){
-		/**
-		 * Variabila folosita pentru a nu avea un carnat de expresii
-		 */
-		double x = Math.pow((p1.first - p2.first),2) + Math.pow((p1.second - p2.second),2);
-		
-		return (int )Math.sqrt(x);
 	}
 	
 	public String toString () {
