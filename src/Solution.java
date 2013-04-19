@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 public class Solution {
 
 	private static final int INF = Integer.MAX_VALUE;
-	private static final int DEPTH = 6;
+	private static final int DEPTH = 20; // a se folosi doar DEPTH par
 
 	
 	/**
@@ -82,12 +82,11 @@ public class Solution {
 	 *            maximi
 	 * @param depth
 	 *            - adancimea la care am intrat in arborele de AlphaBeta
-	 * @param board
-	 *            - tabla de joc
-	 * @param move
-	 *            - miscarea pe care vrem sa o facem
 	 * @param play_as
 	 *            - jucatorul curent
+	 * @param nextMove
+	 * 				- urmatoarea mutare pe care o va face botul
+	 * 				- un fel de parametru de iesire
 	 * @return cea mai buna miscare pentru noi
 	 * 
 	 *         Max in cazul de fata nu modifica tabla de joc ci doar transmite
@@ -135,9 +134,11 @@ public class Solution {
 	 * @param board
 	 *            - tabla de joc curent
 	 * @param move
-	 *            - miscarea pe care a facut-o jucatorul Max
+	 * 				- miscarea facuta de jucatorul Max
 	 * @param play_as
 	 *            - jucatorul curent
+	 * @param nextMove
+	 *            - miscarea pe care o salvam la iesire
 	 * @return cea mai buna miscare pentru minimizarea pierderilor jucaturlui
 	 *         mini
 	 */
@@ -153,7 +154,6 @@ public class Solution {
 		 * Pentru a simula jocul real cand miscarile se fac simultan, modificam
 		 * tabla de joc doar in mini cu ambele miscari.
 		 * 
-		 * Nu sunt foarte multumit de mecanismul asta. Prea mult ifuri.
 		 */
 		
 		for (DIRECTION dir : possibleMoves) {
@@ -206,7 +206,6 @@ public class Solution {
 	
 	/**
 	 * 
-	 * @param in - stdin de fiecare data
 	 * @return Pair cu Board-ul si cu player-ul pe care il controleaza bot-ul
 	 */
 	public Pair<Board, PLAYER> read (Scanner in) {
@@ -214,47 +213,45 @@ public class Solution {
 		Pair<Board, PLAYER> p = new Pair<Board, PLAYER>();
 		Board b;
 
-		if ((in.nextLine()).charAt(0) == 'r')
-			p.setSecond(PLAYER.R);
-		else
-			p.setSecond(PLAYER.G);
-		
-		int fstR, sndR, fstG, sndG;
+		in.useDelimiter("\r\n");
+        String player = in.next();
+        
+        if (player.charAt(0) == 'r')
+        	p.setSecond(PLAYER.R);
+        else
+        	p.setSecond(PLAYER.G);
 
-		String line = "";
-		line = in.nextLine();
-		StringTokenizer st = new StringTokenizer(line, " ");
+        String pos = in.next();
+        String[] str_pos = pos.split(" ");
+        int[] position = new int[4];
+        int[] sizes = new int[2];
 
-		fstR = Integer.parseInt(st.nextToken());
-		sndR = Integer.parseInt(st.nextToken());
+        for(int i = 0; i < 4; i++) {
+            position[i] = Integer.parseInt(str_pos[i]);
+        }
+        pos = in.next();
+        str_pos = pos.split(" ");
+        for(int i = 0; i < 2; i++) {
+            sizes[i] = Integer.parseInt(str_pos[i]);
+        }
 
-		fstG = Integer.parseInt(st.nextToken());
-		sndG = Integer.parseInt(st.nextToken());
+        String board[] = new String[sizes[ 0 ]];
 
-		int lines, cols;
-		line = "";
-		line = in.nextLine();
-		st = new StringTokenizer(line, " ");
-		lines = Integer.parseInt(st.nextToken());
-		cols = Integer.parseInt(st.nextToken());
-		
-		b = new Board(lines, cols);
-		b.setCurrentPositionForG(fstG, sndG);
-		b.setCurrentPositionForR(fstR, sndR);
+        for(int i = 0; i < sizes[0]; i++) {
+            board[i] = in.next();
+        }
 
-		String[] map = new String[lines];
-		for (int i = 0; i < lines; i++) {
-			map[i] = in.nextLine();
-		}
-		
-		b.updateMap(map, lines);
+		b = new Board(sizes[0], sizes[1]);
+		b.setCurrentPositionForG(position[2], position[3]);
+		b.setCurrentPositionForR(position[0], position[1]);
+		b.updateMap(board, sizes[0]);
 
 		p.setFirst(b);
 
 		return p;
-		
+
 	}
-	
+
 	/**
 	 * 
 	 * @param dir - directia
@@ -268,8 +265,8 @@ public class Solution {
 	
 	public static void main (String[] args) {
 		
-		Solution bot = new Solution();
 		Scanner in = new Scanner(System.in);
+		Solution bot = new Solution();
 		Pair<Board, PLAYER> p = bot.read(in);
 		Board b = p.getFirst();
 		PLAYER play_as = p.getSecond();
