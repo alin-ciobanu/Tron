@@ -10,6 +10,7 @@ public class Solution {
 	private static final int INF = Integer.MAX_VALUE;
 	private static final int DEPTH = 6;
 
+	
 	/**
 	 * 
 	 * @param board
@@ -27,7 +28,7 @@ public class Solution {
 	 * nu sa se izbeasca in ea. (Raspuns pentru Alin de la Alin: Nu-i chiar suicidal.)
 	 * 
 	 */
-	int evaluate(Board board, PLAYER play_as) {
+	private int evaluate(Board board, PLAYER play_as) {
 
 		WINNER winner = board.getWinner();
 		Pair<Integer, Integer> pozR;
@@ -96,16 +97,20 @@ public class Solution {
 	 */
 	private int alphaBetaMax(int alpha, int beta, int depth, Board board,
 			PLAYER play_as, SingleDir nextMove) {
-
+		
 		if (depth == 0 || board.getWinner() != WINNER.NOBODY) {
 			return evaluate(board, play_as);
 		}
 
 		ArrayList<DIRECTION> possibleMoves = board.getPossibleMoves(play_as);
-		int score;
 
 		for (DIRECTION dir : possibleMoves) {
-			score = alphaBetaMini(alpha, beta, depth - 1, board, dir, play_as, new SingleDir());
+			int score;
+			
+			if (play_as == PLAYER.G)
+				score = alphaBetaMini(alpha, beta, depth - 1, board, dir, PLAYER.R, new SingleDir());
+			else
+				score = alphaBetaMini(alpha, beta, depth - 1, board, dir, PLAYER.G, new SingleDir());
 			
 			if (score > alpha) {
 				alpha = score;
@@ -140,13 +145,12 @@ public class Solution {
 	 */
 	private int alphaBetaMini(int alpha, int beta, int depth, Board board,
 			DIRECTION move, PLAYER play_as, SingleDir nextMove) {
-
+		
 		if (depth == 0) {
 			return -evaluate(board, play_as);
 		}
 
 		ArrayList<DIRECTION> possibleMoves = board.getPossibleMoves(play_as);
-		int score;
 		/**
 		 * Pentru a simula jocul real cand miscarile se fac simultan, modificam
 		 * tabla de joc doar in mini cu ambele miscari.
@@ -155,22 +159,20 @@ public class Solution {
 		 */
 		
 		for (DIRECTION dir : possibleMoves) {
-			
+
+			int score;
 			Board b1 = new Board(board);
-			
+
 			if (play_as == PLAYER.R) {
 				b1.makeMove(move, PLAYER.R);
 				b1.makeMove(dir, PLAYER.G);
-			} else {
-				b1.makeMove(dir, PLAYER.R);
-				b1.makeMove(move, PLAYER.G);
-			}
-			score = alphaBetaMax(alpha, beta, depth - 1, b1, play_as, new SingleDir());
-
-			if (play_as == PLAYER.R) {
+				score = alphaBetaMax(alpha, beta, depth - 1, b1, PLAYER.G, new SingleDir());
 				b1.undoMove(move, PLAYER.R);
 				b1.undoMove(dir, PLAYER.G);
 			} else {
+				b1.makeMove(dir, PLAYER.R);
+				b1.makeMove(move, PLAYER.G);
+				score = alphaBetaMax(alpha, beta, depth - 1, b1, PLAYER.R, new SingleDir());
 				b1.undoMove(dir, PLAYER.R);
 				b1.undoMove(move, PLAYER.G);
 			}
@@ -248,7 +250,7 @@ public class Solution {
 		}
 		
 		b.updateMap(map, lines);
-		
+
 		p.setFirst(b);
 
 		return p;

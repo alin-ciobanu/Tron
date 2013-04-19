@@ -43,18 +43,16 @@ public class Board{
 		 * Alocari memorie
 		 */
 		board = new MARK[b.lines][b.cols];
-		currentPositionG = new Pair<Integer, Integer>(-1, -1);
-		currentPositionR = new Pair<Integer, Integer>(-1, -1);
 
 		int oldFG, oldSG; // vechiul first si second pt player G
 		oldFG = b.currentPositionG.getFirst();
 		oldSG = b.currentPositionG.getSecond();
-		currentPositionG.setBoth(oldFG, oldSG);
+		currentPositionG = new Pair<Integer, Integer>(oldFG, oldSG);
 
 		int oldFR, oldSR; // vechiul first si second pt player R
 		oldFR = b.currentPositionR.getFirst();
 		oldSR = b.currentPositionR.getSecond();
-		currentPositionG.setBoth(oldFR, oldSR);
+		currentPositionR = new Pair<Integer, Integer>(oldFR, oldSR);
 
 		for (int i = 0; i < b.lines; i++) {
 			for (int j = 0; j < b.cols; j++) {
