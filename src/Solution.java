@@ -1,14 +1,12 @@
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Solution {
 
 	private static final int INF = Integer.MAX_VALUE;
 	private static final int DEPTH = 20; // a se folosi doar DEPTH par
 
-	
+
 	/**
 	 * 
 	 * @param board
@@ -213,15 +211,15 @@ public class Solution {
 		Pair<Board, PLAYER> p = new Pair<Board, PLAYER>();
 		Board b;
 
-		in.useDelimiter("\r\n");
-        String player = in.next();
+		in.useDelimiter("\n");
+        String player = in.nextLine();
         
         if (player.charAt(0) == 'r')
         	p.setSecond(PLAYER.R);
         else
         	p.setSecond(PLAYER.G);
 
-        String pos = in.next();
+        String pos = in.nextLine();
         String[] str_pos = pos.split(" ");
         int[] position = new int[4];
         int[] sizes = new int[2];
@@ -229,7 +227,7 @@ public class Solution {
         for(int i = 0; i < 4; i++) {
             position[i] = Integer.parseInt(str_pos[i]);
         }
-        pos = in.next();
+        pos = in.nextLine();
         str_pos = pos.split(" ");
         for(int i = 0; i < 2; i++) {
             sizes[i] = Integer.parseInt(str_pos[i]);
@@ -238,7 +236,7 @@ public class Solution {
         String board[] = new String[sizes[ 0 ]];
 
         for(int i = 0; i < sizes[0]; i++) {
-            board[i] = in.next();
+            board[i] = in.nextLine();
         }
 
 		b = new Board(sizes[0], sizes[1]);
@@ -265,24 +263,15 @@ public class Solution {
 	
 	public static void main (String[] args) {
 		
-		Scanner in = new Scanner(System.in);
 		Solution bot = new Solution();
+		Scanner in = new Scanner(System.in);
 		Pair<Board, PLAYER> p = bot.read(in);
 		Board b = p.getFirst();
 		PLAYER play_as = p.getSecond();
 		DIRECTION d;
-		
-		while (b.getWinner() == WINNER.NOBODY) {
-			
-			d = bot.getMove(b, play_as);
-			bot.write(d);
+		d = bot.getMove(b, play_as);
+		bot.write(d);
 
-			p = bot.read(in);
-			b = p.getFirst();
-			play_as = p.getSecond();
-			
-		}
-		
 	}
 	
 }
