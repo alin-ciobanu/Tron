@@ -3,8 +3,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import javax.swing.text.PlainDocument;
-
 public class Solution {
 
 	private static final int INF = Integer.MAX_VALUE;
@@ -276,6 +274,8 @@ public class Solution {
 		Board b = p.getFirst();
 		PLAYER play_as = p.getSecond();
 		DIRECTION d;
+		
+		System.out.println(b.currentPositionG);
 		
 		while (b.getWinner() == WINNER.NOBODY) {
 			

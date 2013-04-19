@@ -177,14 +177,14 @@ public class Board{
 		int i, j;
 
 		if (play_as == PLAYER.G) {
-			
+
 			i = currentPositionG.getFirst();
 			j = currentPositionG.getSecond();
-			
+
 			if (board[i - 1][j] == MARK.SPACE) {
 				freeMoves.add(DIRECTION.UP);
 			}
-			
+
 			if (board[i + 1][j] == MARK.SPACE) {
 				freeMoves.add(DIRECTION.DOWN);
 			}
@@ -245,7 +245,7 @@ public class Board{
 		sndR = currentPositionR.getSecond();
 		
 		switch (dir) {
-		
+
 		case UP:
 			if (play_as == PLAYER.G) {
 				fstG = fstG - 1;
@@ -253,12 +253,12 @@ public class Board{
 				board[fstG][sndG] = MARK.PLAYER_G;
 			}
 			else if (play_as == PLAYER.R) {
-				fstR = fstR + 1;
+				fstR = fstR - 1;
 				currentPositionR.setBoth(fstR, sndR);
 				board[fstR][sndR] = MARK.PLAYER_R;
 			}
 			break;
-		
+
 		case DOWN:
 			if (play_as == PLAYER.G) {
 				fstG = fstG + 1;
