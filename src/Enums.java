@@ -3,7 +3,8 @@ enum DIRECTION {
 	UP,
 	DOWN,
 	RIGHT,
-	LEFT
+	LEFT,
+	INVALID
 };
 
 // folosit pentru marcarea hartii

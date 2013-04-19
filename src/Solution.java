@@ -93,7 +93,7 @@ public class Solution {
 	private int alphaBetaMax(int alpha, int beta, int depth, Board board,
 			PLAYER play_as, SingleDir nextMove) {
 		
-		if (depth == 0 || board.getWinner() != WINNER.NOBODY) {
+		if (depth == 0) {
 			return evaluate(board, play_as);
 		}
 
@@ -198,6 +198,18 @@ public class Solution {
 		SingleDir nextMove = new SingleDir();
 
 		alphaBetaMax(-INF, INF, DEPTH, board, play_as, nextMove);
+
+		if (nextMove.dist == DIRECTION.INVALID) {
+			ArrayList<DIRECTION> moves = board.getPossibleMoves(play_as);
+			if (moves.size() != 0) {
+				// daca noi mai avem mutari posibile, facem mutarea
+				nextMove.dist = moves.get(0);
+			}
+			else {
+				nextMove.dist = DIRECTION.DOWN; // aleasa la intamplare
+				// nu mai conteaza in ce directie se duce
+			}
+		}
 		
 		return nextMove.dist;
 	}
@@ -277,6 +289,11 @@ public class Solution {
 }
 
 class SingleDir {
+	
 	DIRECTION dist;
+	
+	public SingleDir () {
+		dist = DIRECTION.INVALID;
+	}
 	
 }

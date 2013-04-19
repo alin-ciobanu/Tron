@@ -1,5 +1,4 @@
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -438,33 +437,6 @@ public class Board{
 		}
 		
 		return s;
-		
-	}
-	
-	public static void main(String[] args) throws Exception {
-		
-		int lines, cols;
-		lines = cols = 15;
-		Board b = new Board(lines, cols);
-		
-		Scanner in = new Scanner(new File("testBoard.txt"));
-
-		String[] mat = new String[lines];
-		
-		for (int i = 0; i < lines; i++) {
-			mat[i] = in.nextLine();
-		}
-		
-		in.close();
-		
-		b.updateMap(mat, lines);
-		b.setCurrentPositionForR(7, 1);
-		b.setCurrentPositionForG(12, 8);
-
-		ArrayList<DIRECTION> free = b.getPossibleMoves(PLAYER.G);
-		
-		b.makeMove(DIRECTION.DOWN, PLAYER.R);
-		System.out.println(b.board[8][1]);
 		
 	}
 

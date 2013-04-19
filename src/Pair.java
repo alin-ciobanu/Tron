@@ -48,14 +48,6 @@ public class Pair<T, U> {
 		return "[" + first + ", " + second + "]";
 	}
 
-	public static void main(String[] args) {
-		
-		Pair<Integer, Integer> p1 = new Pair<Integer, Integer>(5, 6);
-		Pair<Integer, Integer> p2 = new Pair<Integer, Integer>(5, 70);
-		
-		System.out.println(p1.equals(p2));
-		
-	}
 	
 }
 
