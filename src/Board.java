@@ -5,12 +5,12 @@ import java.util.Scanner;
 
 public class Board{
 
-	private MARK board[][];
+	MARK board[][];
 
-	private Pair<Integer, Integer> currentPositionG;
-	private Pair<Integer, Integer> currentPositionR;
+	Pair<Integer, Integer> currentPositionG;
+	Pair<Integer, Integer> currentPositionR;
 
-	private int lines, cols; // dimensiunea hartii
+	int lines, cols; // dimensiunea hartii
 
 	/**
 	 * 
@@ -38,6 +38,13 @@ public class Board{
 	 * copiaza Board-ul b
 	 */
 	public Board (Board b) {
+		
+		/*
+		 * Alocari memorie
+		 */
+		board = new MARK[b.lines][b.cols];
+		currentPositionG = new Pair<Integer, Integer>(-1, -1);
+		currentPositionR = new Pair<Integer, Integer>(-1, -1);
 
 		int oldFG, oldSG; // vechiul first si second pt player G
 		oldFG = b.currentPositionG.getFirst();
@@ -54,6 +61,9 @@ public class Board{
 				board[i][j] = b.board[i][j];
 			}
 		}
+		
+		this.lines = b.lines;
+		this.cols = b.cols;
 
 	}
 
@@ -199,7 +209,7 @@ public class Board{
 			if (board[i - 1][j] == MARK.SPACE) {
 				freeMoves.add(DIRECTION.UP);
 			}
-			
+
 			if (board[i + 1][j] == MARK.SPACE) {
 				freeMoves.add(DIRECTION.DOWN);
 			}
@@ -420,6 +430,21 @@ public class Board{
 
 	}
 	
+	public String toString () {
+
+		String s = "";
+		
+		for (int i = 0; i < lines; i++) {
+			for (int j = 0; j < cols; j++) {
+				s += board[i][j] + " ";
+			}
+			s += "\n";
+		}
+		
+		return s;
+		
+	}
+	
 	public static void main(String[] args) throws Exception {
 		
 		int lines, cols;
@@ -439,12 +464,11 @@ public class Board{
 		b.updateMap(mat, lines);
 		b.setCurrentPositionForR(7, 1);
 		b.setCurrentPositionForG(12, 8);
-		System.out.println(b.board[12][8]);
 
 		ArrayList<DIRECTION> free = b.getPossibleMoves(PLAYER.G);
-		System.out.println(free);
 		
-		System.out.println(b.getWinner());
+		b.makeMove(DIRECTION.DOWN, PLAYER.R);
+		System.out.println(b.board[8][1]);
 		
 	}
 

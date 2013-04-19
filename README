@@ -1,8 +1,4 @@
 Tron
 ====
 
-Alin Ciobanu:
-Am inceput proiectul in Eclipse. Stiu ca Alina foloseste tot Eclipse. Sper sa nu fie probleme cu IDE-ul. :D
-
-Rugaminte: Incercati sa nu accesati campuri ale unei clase. Luati-le ca pe un black box si folositi instanta clasei respectiv doar prin intermediul metodelor.
-Sau poate incerc sa fac eu campurile private. :D
+Bug-uri :(

@@ -154,26 +154,25 @@ public class Solution {
 		 * Nu sunt foarte multumit de mecanismul asta. Prea mult ifuri.
 		 */
 		
-		/*
-		 * TODO in functia asta: lucreaza pe un board copiat, nu direct pe ce primesti in param
-		 */
-		
 		for (DIRECTION dir : possibleMoves) {
-			if (play_as.equals(PLAYER.R)) {
-				board.makeMove(move, PLAYER.R);
-				board.makeMove(dir, PLAYER.G);
+			
+			Board b1 = new Board(board);
+			
+			if (play_as == PLAYER.R) {
+				b1.makeMove(move, PLAYER.R);
+				b1.makeMove(dir, PLAYER.G);
 			} else {
-				board.makeMove(dir, PLAYER.R);
-				board.makeMove(move, PLAYER.G);
+				b1.makeMove(dir, PLAYER.R);
+				b1.makeMove(move, PLAYER.G);
 			}
-			score = alphaBetaMax(alpha, beta, depth - 1, board, play_as, new SingleDir());
+			score = alphaBetaMax(alpha, beta, depth - 1, b1, play_as, new SingleDir());
 
-			if (play_as.equals(PLAYER.R)) {
-				board.undoMove(move, PLAYER.R);
-				board.undoMove(dir, PLAYER.G);
+			if (play_as == PLAYER.R) {
+				b1.undoMove(move, PLAYER.R);
+				b1.undoMove(dir, PLAYER.G);
 			} else {
-				board.undoMove(dir, PLAYER.R);
-				board.undoMove(move, PLAYER.G);
+				b1.undoMove(dir, PLAYER.R);
+				b1.undoMove(move, PLAYER.G);
 			}
 
 			if (score < beta) {
@@ -256,6 +255,11 @@ public class Solution {
 		
 	}
 	
+	/**
+	 * 
+	 * @param dir - directia
+	 * Scrie la stdout directia dir.
+	 */
 	public void write (DIRECTION dir) {
 		
 		System.out.println(dir);
