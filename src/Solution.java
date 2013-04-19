@@ -162,17 +162,17 @@ public class Solution {
 			Board b1 = new Board(board);
 
 			if (play_as == PLAYER.R) {
-				b1.makeMove(move, PLAYER.R);
-				b1.makeMove(dir, PLAYER.G);
-				score = alphaBetaMax(alpha, beta, depth - 1, b1, PLAYER.G, new SingleDir());
-				b1.undoMove(move, PLAYER.R);
-				b1.undoMove(dir, PLAYER.G);
-			} else {
 				b1.makeMove(dir, PLAYER.R);
 				b1.makeMove(move, PLAYER.G);
-				score = alphaBetaMax(alpha, beta, depth - 1, b1, PLAYER.R, new SingleDir());
+				score = alphaBetaMax(alpha, beta, depth - 1, b1, PLAYER.G, new SingleDir());
 				b1.undoMove(dir, PLAYER.R);
 				b1.undoMove(move, PLAYER.G);
+			} else {
+				b1.makeMove(move, PLAYER.R);
+				b1.makeMove(dir, PLAYER.G);
+				score = alphaBetaMax(alpha, beta, depth - 1, b1, PLAYER.R, new SingleDir());
+				b1.undoMove(move, PLAYER.R);
+				b1.undoMove(dir, PLAYER.G);
 			}
 
 			if (score < beta) {
@@ -275,13 +275,11 @@ public class Solution {
 		PLAYER play_as = p.getSecond();
 		DIRECTION d;
 		
-		System.out.println(b.currentPositionG);
-		
 		while (b.getWinner() == WINNER.NOBODY) {
 			
 			d = bot.getMove(b, play_as);
 			bot.write(d);
-			
+
 			p = bot.read(in);
 			b = p.getFirst();
 			play_as = p.getSecond();

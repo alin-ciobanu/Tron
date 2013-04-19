@@ -283,7 +283,6 @@ public class Board{
 				currentPositionR.setBoth(fstR, sndR);
 				board[fstR][sndR] = MARK.PLAYER_R;
 			}
-
 			break;
 
 		case RIGHT:
@@ -297,7 +296,6 @@ public class Board{
 				currentPositionR.setBoth(fstR, sndR);
 				board[fstR][sndR] = MARK.PLAYER_R;
 			}
-			
 			break;
 		
 		default:
