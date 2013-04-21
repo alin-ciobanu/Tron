@@ -265,7 +265,7 @@ public class Solution {
 		Pair<Board, PLAYER> p = new Pair<Board, PLAYER>();
 		Board b;
 
-		in.useDelimiter("\r\n");
+		in.useDelimiter("\n");
         String player = in.nextLine();
         
         if (player.charAt(0) == 'r')
