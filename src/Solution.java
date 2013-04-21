@@ -6,6 +6,10 @@ public class Solution {
 	private static final int INF = Integer.MAX_VALUE;
 	private static final int DEPTH = 16; // a se folosi doar DEPTH par
 
+	static long TIME = System.currentTimeMillis();
+	static long TIME_PER_MOVE = 5000;
+	// 5 secunde pentru mutare (5000 de milisecunde)
+
 	/**
 	 * 
 	 * @param board
@@ -128,7 +132,10 @@ public class Solution {
 	private int alphaBetaMax(int alpha, int beta, int depth, Board board,
 			PLAYER play_as, SingleDir nextMove) {
 
-		if (depth == 0) {
+		long currentTime = System.currentTimeMillis();
+		long timeElapsed = currentTime - TIME;
+
+		if (depth == 0 || timeElapsed + 400 > TIME_PER_MOVE) {
 			return evaluate(board, play_as);
 		}
 
@@ -258,7 +265,7 @@ public class Solution {
 		Pair<Board, PLAYER> p = new Pair<Board, PLAYER>();
 		Board b;
 
-		in.useDelimiter("\n");
+		in.useDelimiter("\r\n");
         String player = in.nextLine();
         
         if (player.charAt(0) == 'r')
