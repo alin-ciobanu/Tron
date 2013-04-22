@@ -1,4 +1,56 @@
-Tron
-====
+﻿Proiect PA - Tron
 
-Bug-uri :(
+
+Echipa: OverFlowers
+
+
+Alin Ciobanu - 322 CC
+Alina Mirion - 322 CC
+Alin Răuțoiu - 322 CC
+Andreea Tița - 324 CC
+
+
+IDE folosit: Eclipse
+Sistem de operare: Windows (toți membrii echipei)
+Limbaj de programare: Java
+Mod de compilare și de testare: Am compilat din Eclipse și am testat local folosind modelul de hărți pus la dispoziție, introducând de la tastatură (sau din fișiere text) datele de intrare.
+
+
+Pentru managementul surselor am folosit GitHub (link-ul repository-ului la [1]).
+
+Am convenit în echipă la următoarea implementare:
+
+Folosim algoritmul de MiniMax cu optimizarea AlphaBeta pruning. 
+
+Pentru a asigura o bună folosire a algoritmului creăm o clasă Board în care sunt incluse toate metodele necesare simulării jocului și modificării tablei în concordanță cu mutările alese.
+
+Alin Ciobanu a scris în primă fază clasa Board. A folosit modelul jocului de X și 0 din cadrul laboratorului de Minimax pentru structura clasei. 
+Alin Răuțoiu a început să scrie funcția de Minimax.
+
+Folosim o serie de enumerări pentru o mai bună ordonare a datelor, precum jucătorii, direcțiile sau tipul de marcaje de pe teren (acestea se găsesc în fișierul Enums.java).
+
+Terenul de joc este reprezentat în clasa Board ca o matrice de enumerări MARK(enumerări care mențin tipul e obiecte ce se pot găsi pe teren). Clasa mai conține metode pentru obținerea câștigătorului, pentru efectuarea mutărilor, pentru redresarea mutărilor, obținerea mutărilor posibile și updatarea terenului conform stringului primit de la Hackerrank.
+
+Soluția se obține în clasa Solution.
+Pentru a simula simultaneitatea mutărilor jucătorilor am convenit ca tabla de joc să se modifice doar în pasul de Mini, după ce ambii jucători au hotărât unde vor muta. Inițial evaluarea a fost făcută calculând distanța dintre capetele jucătorilor, încercând astfel să atacăm light-cycleul adversar. Pe parscurs am convenit că vom folosi pentru evaluare un algoritm pe baza diagramelor lui Voronoi care evaluează diferența dintre punctele la care poate ajunge un bot față de punctele la care poate ajunge primul celălalt bot. Astfel, Minimaxul întoarce mutarea care ne-ar lăsa deschise cele mai multe posibilități de a muta, iar adversarului cele mai puține. Pentru a afla punctele la care un bot poate ajunge am folosit o parcurgere BFS (astfel am aflat și distanțele de la poziția curentă a unui oponent la fiecare punct). Algoritmul trebuie îmbunătățit pentru etapele viitoare, dar pentru etapa curentă pare să fi dat roade (totuși nu am apucat să testăm pentru că a picat site-ul).  
+Complexitatea funcției de evaluare este cea a BFS-ului (V + E, unde V este numărul de noduri din graf, iar E este numărul de muchii). Complexitatea minimax-ului (chiar dacă este alpha beta pruning) este de b la puterea d (unde b este numărul de branch-uri ale unui nod, iar d este depth-ul la care se ajunge). Nu am găsit o euristică exactă care să reducă drastic numărul de branch-uri, pentru că este greu de prezis ce câștig va aduce o mutare. Totuși, suntem de părere că important este să găsim o funcție de evaluare bună pentru că aceasta aduce un câștig mai mare decât ar aduce o strategie bazată pe o căutare mai adâncă, dar cu o funție de evaluare mai slabă.
+
+În clasa Directions avem metode statice care nu aparțin de o clasă anume, precum metoda pentru efectuarea BFSului. 
+
+Am avut câteva ședințe de testare și debugging în comun al căror rezultate au ajuns pe calculatorul lui Alin Ciobanu, de unde au fost comitted.
+
+Submisia noastră de pe hackerrank se găsește la [2]. Link-urile de la fiecare meci în parte se vor găsi la [4].
+Ca surse de inspirație, demn de menționat este articolul de la [3].
+
+
+[1] https://github.com/alin-ciobanu/Tron
+[2] https://www.hackerrank.com/contests/bucharest-tron/submissions/game/623386
+[3] http://www.a1k0n.net/2010/03/04/google-ai-postmortem.html
+
+
+[4] https://www.hackerrank.com/showgame/2120454 - meciul 1 RandomBot
+https://www.hackerrank.com/showgame/2120455 - meciul 2 RandomBot
+etc.. (se schimbă ultima cifră din link pentru a trece la meciul următor)
+https://www.hackerrank.com/showgame/2120469 - meciul 16 RandomBot
+https://www.hackerrank.com/showgame/2120470 - meciul 1 explorer
+https://www.hackerrank.com/showgame/2120485 - meciul 16 explorer
