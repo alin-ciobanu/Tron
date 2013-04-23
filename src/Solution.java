@@ -135,7 +135,7 @@ public class Solution {
 		long currentTime = System.currentTimeMillis();
 		long timeElapsed = currentTime - TIME;
 
-		if (depth == 0 || timeElapsed + 400 > TIME_PER_MOVE) {
+		if (depth == 0 || timeElapsed + 400 > TIME_PER_MOVE || board.getWinner() != WINNER.NOBODY) {
 			return evaluate(board, play_as);
 		}
 
@@ -185,7 +185,7 @@ public class Solution {
 	private int alphaBetaMini(int alpha, int beta, int depth, Board board,
 			DIRECTION move, PLAYER play_as, SingleDir nextMove) {
 
-		if (depth == 0) {
+		if (depth == 0 || board.getWinner() != WINNER.NOBODY) {
 			return -evaluate(board, play_as);
 		}
 
@@ -324,6 +324,7 @@ public class Solution {
 		PLAYER play_as = p.getSecond();
 		DIRECTION d;
 		d = bot.getMove(b, play_as);
+		System.out.flush();
 		bot.write(d);
 
 	}
