@@ -1,0 +1,12 @@
+﻿Rafinat algoritmul.
+
+
+Alin1: Propunerea mea este gasirea punctelor de articulatie, desconsiderarea lor in cadrul BFSului, aplicarea algoritmului lui Voronoi pe fiecare arbore din padurea de arbori rezultata si selectarea drumului cel mai avantajos(practic ar insemna -sau aș vrea eu să însemne- umplerea acelei calote care lasă botului nostru mai multe mutări libere decât botului advers). Ma gandesc ca asta l-ar face sa nu mai umple spatii aiurea, ci ar merge sa blocheze adversarul.
+
+
+Alin2: Trebuie sa facem un if in care sa verificam daca cei doi boti sunt separati si nu se mai pot ataca (adica daca currentPosition al unui bot e la distanta infinit de currentPosition al celuilalt bot dupa aplicarea BFS-ului). Daca botii sunt separati, va trebui sa gasim o metoda pentru a umple spatiul cat mai eficient. 
+
+
+
+
+Acum ghiciți care e Alin 1 și care e 2. =)
