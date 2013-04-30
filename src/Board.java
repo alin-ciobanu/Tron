@@ -1,6 +1,5 @@
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Board{
 
@@ -414,8 +413,8 @@ public class Board{
 		if (possibleMovesForG > 0 && possibleMovesForR == 0) {
 			return WINNER.PLAYER_G;
 		}
-		
-		if (possibleMovesForG >0 && possibleMovesForR > 0) {
+
+		if (possibleMovesForG > 0 && possibleMovesForR > 0) {
 			return WINNER.NOBODY;
 		}
 

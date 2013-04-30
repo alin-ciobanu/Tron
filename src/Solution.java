@@ -82,6 +82,7 @@ public class Solution {
 			for (int j = 0; j < board.cols; j++) {
 
 				differences[i][j] = distancesG[i][j] - distancesR[i][j];
+				
 				/*
 				 * Astfel, differences[i][j] > 0 daca R ajunge primul in punctul [i][j]
 				 * < 0 daca G ajunge primul in punctul [i][j]
@@ -97,14 +98,12 @@ public class Solution {
 				
 			}
 		}
-		
-		// am impresia ca nu mai e nevoie si de if-urile astea, 
-		// dar la ora asta nu imi mai dau seama
+
 		if (play_as == PLAYER.R) {
-			return reachingR - reachingG;
+			return (reachingR - reachingG);
 		}
 		else {
-			return reachingG - reachingR;
+			return (reachingG - reachingR);
 		}
 		
 	}
@@ -134,7 +133,7 @@ public class Solution {
 
 		long currentTime = System.currentTimeMillis();
 		long timeElapsed = currentTime - TIME;
-
+		
 		if (depth == 0 || timeElapsed + 400 > TIME_PER_MOVE || board.getWinner() != WINNER.NOBODY) {
 			return evaluate(board, play_as);
 		}
@@ -143,12 +142,12 @@ public class Solution {
 
 		for (DIRECTION dir : possibleMoves) {
 			int score;
-			
+
 			if (play_as == PLAYER.G)
 				score = alphaBetaMini(alpha, beta, depth - 1, board, dir, PLAYER.R, new SingleDir());
 			else
 				score = alphaBetaMini(alpha, beta, depth - 1, board, dir, PLAYER.G, new SingleDir());
-			
+
 			if (score > alpha) {
 				alpha = score;
 				nextMove.dist = dir;
@@ -236,12 +235,13 @@ public class Solution {
 	 * @return urmatoarea mutare
 	 */
 	public DIRECTION getMove(Board board, PLAYER play_as){
-		
+
 		SingleDir nextMove = new SingleDir();
 
 		alphaBetaMax(-INF, INF, DEPTH, board, play_as, nextMove);
 
 		if (nextMove.dist == DIRECTION.INVALID) {
+			System.out.println("Not nice");
 			ArrayList<DIRECTION> moves = board.getPossibleMoves(play_as);
 			if (moves.size() != 0) {
 				// daca noi mai avem mutari posibile, facem mutarea
@@ -252,22 +252,22 @@ public class Solution {
 				// nu mai conteaza in ce directie se duce
 			}
 		}
-		
+
 		return nextMove.dist;
 	}
-	
+
 	/**
 	 * 
 	 * @return Pair cu Board-ul si cu player-ul pe care il controleaza bot-ul
 	 */
 	public Pair<Board, PLAYER> read (Scanner in) {
-		
+
 		Pair<Board, PLAYER> p = new Pair<Board, PLAYER>();
 		Board b;
 
 		in.useDelimiter("\n");
         String player = in.nextLine();
-        
+
         if (player.charAt(0) == 'r')
         	p.setSecond(PLAYER.R);
         else
@@ -287,7 +287,7 @@ public class Solution {
             sizes[i] = Integer.parseInt(str_pos[i]);
         }
 
-        String board[] = new String[sizes[ 0 ]];
+        String board[] = new String[sizes[0]];
 
         for(int i = 0; i < sizes[0]; i++) {
             board[i] = in.nextLine();
@@ -324,7 +324,6 @@ public class Solution {
 		PLAYER play_as = p.getSecond();
 		DIRECTION d;
 		d = bot.getMove(b, play_as);
-		System.out.flush();
 		bot.write(d);
 
 	}
